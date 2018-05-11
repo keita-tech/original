@@ -1,7 +1,13 @@
-<ul class="media-list">
+<?php $url = $_SERVER['REQUEST_URI']; ?>
 @foreach ($reviews as $review)
-    <?php $user = $review->user; ?>
-    <li class="media">
+<table class="table table-striped">
+<tr class="media-list">
+    @if (strstr($url,'search')==true || strstr($url,'SearchKekka')==true)
+        <?php $user = App\User::find($review->user_id); ?>
+    @else
+    　　<?php $user = $review->user; ?>
+    @endif
+    <th class="media">
         <div class="media-left">
             <img class="media-object img-rounded" src="{{ Gravatar::src($user->email, 50) }}" alt="">
         </div>
@@ -18,15 +24,19 @@
              <div>
                 <p>{!! nl2br(e($review->content)) !!}</p>
             </div>
-            <div>
-                @if (Auth::user()->id == $review->user_id)
-                    {!! Form::open(['route' => ['reviews.destroy', $review->id], 'method' => 'delete']) !!}
-                        {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
-                    {!! Form::close() !!}
-                @endif
+            <div class="btn-toolbar">
+                <div class="btn-group btn-group-justified">
+                    @include('user_favorite.favorite_button', ['review' => $review])
+                    @if (Auth::user()->id == $review->user_id)
+                        {!! Form::open(['route' => ['reviews.destroy', $review->id], 'method' => 'delete']) !!}
+                            {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                        {!! Form::close() !!}
+                    @endif
+                </div>
             </div>
         </div>
-    </li>
+    </th>
+</table>
 @endforeach
-</ul>
+</tr>
 {!! $reviews->render() !!}

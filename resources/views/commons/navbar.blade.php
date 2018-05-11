@@ -8,14 +8,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">ComicReview</a>
+                <a class="navbar-brand" id="ookikunare" href="/"><font face="fantasy">ComicReview</font></a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                      @if (Auth::check())
                         <li>
                             
-                            <a href="{{ route('reviews.create', ['id' => Auth::user()->id]) }}"><!--修正必要！！-->
+                            <a href="{{ route('reviews.create', ['id' => Auth::user()->id]) }}">
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                 投稿
                             </a>
@@ -27,7 +27,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="{{ route('search.refer') }}">
                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                                 search
                               </a>

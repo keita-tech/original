@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'ReviewsController@index');
+Route::get("/", 'ReviewsController@index');
 
 // ユーザ登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup.get');
@@ -24,5 +24,22 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('users', 'UsersController');
+    
+    Route::get('search', 'SearchController@refer')->name('search.refer');
+    Route::post('search.SearchKekka','SearchController@refer')->name('search.SearchKekka'); 
+    
+    Route::group(['prefix' => 'users/{id}'], function () {
+        Route::post('follow', 'UserFollowController@store')->name('user.follow');
+        Route::delete('unfollow', 'UserFollowController@destroy')->name('user.unfollow');
+        Route::get('followings', 'UsersController@followings')->name('users.followings');
+        Route::get('followers', 'UsersController@followers')->name('users.followers');
+        
+        Route::post('favorite', 'UserFavoriteController@store')->name('user.favorite');
+        Route::delete('unfavorite', 'UserFavoriteController@destroy')->name('user.unfavorite');
+        Route::get('favorites', 'UsersController@favorites')->name('users.favorites');
+    });
+    
+    Route::delete('reviews/{id}/desedit', 'ReviewsController@desedit')->name('reviews.desedit');
     Route::resource('reviews', 'ReviewsController');
+
 });

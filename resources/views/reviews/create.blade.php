@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1>レビュー新規作成ページ</h1>
+<h1>レビュー新規作成</h1>
 
    <div class="row">
         <div class="col-xs-12 col-sm-offset2 col-sm-6 col-lg-offset-3 col-lg-6">

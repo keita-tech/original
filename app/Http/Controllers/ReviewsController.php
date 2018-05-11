@@ -16,7 +16,7 @@ class ReviewsController extends Controller
         $data = [];
         if (\Auth::check()) {
             $user = \Auth::user();
-            $reviews = $user->reviews()->orderBy('created_at', 'desc')->paginate(10);
+            $reviews = $user->feed_reviews()->orderBy('created_at', 'desc')->paginate(10);
 
             $data = [
                 'user' => $user,
@@ -25,7 +25,7 @@ class ReviewsController extends Controller
             $data += $this->counts($user);
             return view('users.show', $data);
         }else {
-            return view('welcome');
+            return view('welcome', $data);
         }
     }
     
@@ -100,11 +100,22 @@ class ReviewsController extends Controller
     public function destroy($id)
     {
         $review = \App\Review::find($id);
-
+        
         if (\Auth::user()->id === $review->user_id) {
             $review->delete();
         }
-
         return redirect()->back();
+        
+    }
+    
+    public function desedit($id)
+    {
+        $review = \App\Review::find($id);
+        
+        if (\Auth::user()->id === $review->user_id) {
+            $review->delete();
+        }
+        return redirect('/');
+        
     }
 }

@@ -10,13 +10,25 @@ footer {
 
 /* navbar */
 .navbar {
-    background-color: lightsteelblue;
+    background-color: navy;
+    font-size: 115%;
 }
 .navbar-header img {
     margin-top: 5px;
     height: 40px;
 }
+#ookikunare {
+    font-size: 200%;
+    color: aliceblue;
+}
 
+
+.form-group {
+    font-size: 120%;
+}
+.table {
+    font-size: 120%;
+}
 
 /* cover */
 .cover {
@@ -48,5 +60,4 @@ footer {
     background-color: #ed486f;
     border-color: #ed486f;
 }
-
 
